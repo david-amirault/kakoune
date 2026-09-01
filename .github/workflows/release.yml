@@ -1,0 +1,55 @@
+name: Release Kakoune Bundle
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Release ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - target: aarch64-apple-darwin
+            os: macos-latest
+          - target: aarch64-unknown-linux-gnu
+            os: ubuntu-26.04-arm
+          - target: x86_64-unknown-linux-gnu
+            os: ubuntu-26.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set Up Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+
+      - name: Build
+        run: |
+          git clone --depth 1 https://github.com/mawww/kakoune.git
+          mkdir -p kak-release
+          make -j$(nproc) PREFIX=$(pwd)/kak-release static=yes install-strip
+
+          git clone --depth 1 https://github.com/kak-lsp/kak-lsp.git
+          cargo build --manifest-path kak-lsp/Cargo.toml --release --locked
+
+          git clone --depth 1 https://git.sr.ht/~hadronized/kak-tree-sitter
+          cargo build --manifest-path kak-tree-sitter/Cargo.toml --release --locked
+
+      - name: Bundle
+        run: |
+          mkdir -p bundle
+
+          cp kak-release/bin/kak bundle/
+          cp kak-lsp/target/release/kak-lsp bundle/
+          cp kak-tree-sitter/target/release/kak-tree-sitter bundle/
+          cp kak-tree-sitter/target/release/ktsctl bundle/
+
+          tar -czvf kakoune-${{ matrix.target }}.tar.gz bundle/
+
+      - name: Release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: kakoune-${{ matrix.target }}.tar.gz
