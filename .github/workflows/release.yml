@@ -29,20 +29,19 @@ jobs:
       - name: Build
         run: |
           git clone --depth 1 https://github.com/mawww/kakoune.git
-          mkdir -p kak-release
-          make -C kakoune -j$(nproc) PREFIX=$(pwd)/kak-release install-strip
+          (cd kakoune && make -j$(nproc) && strip ./src/kak)
 
           git clone --depth 1 https://github.com/kak-lsp/kak-lsp.git
-          cargo build --manifest-path kak-lsp/Cargo.toml --release --locked
+          (cd kak-lsp && cargo build --release --locked)
 
           git clone --depth 1 https://git.sr.ht/~hadronized/kak-tree-sitter
-          cargo build --manifest-path kak-tree-sitter/Cargo.toml --release --locked
+          (cd kak-tree-sitter && cargo build --release --locked)
 
       - name: Bundle
         run: |
           mkdir -p bundle
 
-          cp kak-release/bin/kak bundle/
+          cp kakoune/src/kak bundle/
           cp kak-lsp/target/release/kak-lsp bundle/
           cp kak-tree-sitter/target/release/kak-tree-sitter bundle/
           cp kak-tree-sitter/target/release/ktsctl bundle/
