@@ -30,7 +30,7 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/mawww/kakoune.git
           mkdir -p kak-release
-          make -j$(nproc) PREFIX=$(pwd)/kak-release static=yes install-strip
+          make -C kakoune -j$(nproc) PREFIX=$(pwd)/kak-release static=yes install-strip
 
           git clone --depth 1 https://github.com/kak-lsp/kak-lsp.git
           cargo build --manifest-path kak-lsp/Cargo.toml --release --locked
