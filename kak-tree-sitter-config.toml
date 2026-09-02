@@ -1,0 +1,168 @@
+# bash
+[grammar.bash]
+compile_args = ["-c", "-fpic", "../scanner.c", "../parser.c", "-I", ".."]
+compile_flags = ["-O3", "-march=native", "-flto=auto"]
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "bash.so"]
+link_flags = ["-O3", "-flto=auto"]
+
+[language.bash]
+aliases = ["sh"]
+
+[grammar.bash.source.git]
+url = "https://github.com/tree-sitter/tree-sitter-bash"
+pin = "a06c2e4415e9bc0346c6b86d401879ffb44058f7"
+
+[language.bash.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "079a789e8cb08ead67f19e1971a1b7438b37354b"
+
+# comment
+[grammar.comment]
+compile_args = ["-c", "-fpic", "../scanner.c", "../parser.c", "-I", ".."]
+compile_flags = ["-O3", "-march=native", "-flto=auto"]
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "comment.so"]
+link_flags = ["-O3", "-flto=auto"]
+
+[grammar.comment.source.git]
+url = "https://github.com/stsewd/tree-sitter-comment"
+pin = "66272d2b6c73fb61157541b69dd0a7ce7b42a5ad"
+
+[language.comment.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "079a789e8cb08ead67f19e1971a1b7438b37354b"
+
+# csv
+[grammar.csv]
+path = "csv/src"
+compile_args = ["-c", "-fpic", "../parser.c", "-I", ".."]
+compile_flags = ["-O3", "-march=native", "-flto=auto"]
+link_args = ["-shared", "-fpic", "parser.o", "-o", "csv.so"]
+link_flags = ["-O3", "-flto=auto"]
+
+[grammar.csv.source.git]
+url = "https://github.com/tree-sitter-grammars/tree-sitter-csv"
+pin = "f6bf6e35eb0b95fbadea4bb39cb9709507fcb181"
+
+[language.csv.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "079a789e8cb08ead67f19e1971a1b7438b37354b"
+
+# fish
+[grammar.fish]
+compile_args = ["-c", "-fpic", "../scanner.c", "../parser.c", "-I", ".."]
+compile_flags = ["-O3", "-march=native", "-flto=auto"]
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "fish.so"]
+link_flags = ["-O3", "-flto=auto"]
+
+[grammar.fish.source.git]
+url = "https://github.com/ram02z/tree-sitter-fish"
+pin = "b7f1d682941e0c62dfcd6bf9ef481638351bab16"
+
+[language.fish.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "079a789e8cb08ead67f19e1971a1b7438b37354b"
+
+# git-commit
+[grammar.git-commit]
+compile_args = ["-c", "-fpic", "../scanner.c", "../parser.c", "-I", ".."]
+compile_flags = ["-O3", "-march=native", "-flto=auto"]
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "git-commit.so"]
+link_flags = ["-O3", "-flto=auto"]
+
+[grammar.git-commit.source.git]
+url = "https://github.com/gbprod/tree-sitter-gitcommit"
+pin = "a87878a27b78f75ba59df5bb2fbe36ce88c319ab"
+
+[language.git-commit.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "079a789e8cb08ead67f19e1971a1b7438b37354b"
+
+# go
+[grammar.go]
+compile_args = ["-c", "-fpic", "../parser.c", "-I", ".."]
+compile_flags = ["-O3", "-march=native", "-flto=auto"]
+link_args = ["-shared", "-fpic", "parser.o", "-o", "go.so"]
+link_flags = ["-O3", "-flto=auto"]
+
+[grammar.go.source.git]
+url = "https://github.com/tree-sitter/tree-sitter-go"
+pin = "2346a3ab1bb3857b48b29d779a1ef9799a248cd7"
+
+[language.go.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "079a789e8cb08ead67f19e1971a1b7438b37354b"
+
+# json
+[grammar.json]
+compile_args = ["-c", "-fpic", "../parser.c", "-I", ".."]
+compile_flags = ["-O3", "-march=native", "-flto=auto"]
+link_args = ["-shared", "-fpic", "parser.o", "-o", "json.so"]
+link_flags = ["-O3", "-flto=auto"]
+
+[grammar.json.source.git]
+url = "https://github.com/tree-sitter/tree-sitter-json"
+pin = "254c42a6476413b776221e03982ac8ae159eeb72"
+
+[language.json.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "079a789e8cb08ead67f19e1971a1b7438b37354b"
+
+# python
+[grammar.python]
+compile_args = ["-c", "-fpic", "../scanner.c", "../parser.c", "-I", ".."]
+compile_flags = ["-O3", "-march=native", "-flto=auto"]
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "python.so"]
+link_flags = ["-O3", "-flto=auto"]
+
+[grammar.python.source.git]
+url = "https://github.com/tree-sitter/tree-sitter-python"
+pin = "26855eabccb19c6abf499fbc5b8dc7cc9ab8bc64"
+
+[language.python.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "079a789e8cb08ead67f19e1971a1b7438b37354b"
+
+# sql
+[grammar.sql]
+compile_args = ["-c", "-fpic", "../scanner.c", "../parser.c", "-I", ".."]
+compile_flags = ["-O3", "-march=native", "-flto=auto"]
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "sql.so"]
+link_flags = ["-O3", "-flto=auto"]
+
+[grammar.sql.source.git]
+url = "https://github.com/DerekStride/tree-sitter-sql"
+pin = "851e9cb257ba7c66cc8c14214a31c44d2f1e954e"
+
+[language.sql.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "079a789e8cb08ead67f19e1971a1b7438b37354b"
+
+# toml
+[grammar.toml]
+compile_args = ["-c", "-fpic", "../scanner.c", "../parser.c", "-I", ".."]
+compile_flags = ["-O3", "-march=native", "-flto=auto"]
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "toml.so"]
+link_flags = ["-O3", "-flto=auto"]
+
+[grammar.toml.source.git]
+url = "https://github.com/ikatyang/tree-sitter-toml"
+pin = "8bd2056818b21860e3d756b5a58c4f6e05fb744e"
+
+[language.toml.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "079a789e8cb08ead67f19e1971a1b7438b37354b"
+
+# yaml
+[grammar.yaml]
+compile_args = ["-c", "-fpic", "../scanner.cc", "../parser.c", "-I", ".."]
+compile_flags = ["-O3", "-march=native", "-flto=auto"]
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "yaml.so"]
+link_flags = ["-O3", "-flto=auto", "-lstdc++"]
+
+[grammar.yaml.source.git]
+url = "https://github.com/ikatyang/tree-sitter-yaml"
+pin = "0e36bed171768908f331ff7dff9d956bae016efb"
+
+[language.yaml.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "079a789e8cb08ead67f19e1971a1b7438b37354b"
