@@ -17,10 +17,13 @@ jobs:
         include:
           - target: aarch64-apple-darwin
             os: macos-latest
+            strip: strip -S -x
           - target: aarch64-unknown-linux-gnu
             os: ubuntu-26.04-arm
+            strip: strip -s
           - target: x86_64-unknown-linux-gnu
             os: ubuntu-26.04
+            strip: strip -s
 
     steps:
       - name: Checkout
@@ -34,7 +37,8 @@ jobs:
           mkdir -p bundle
 
           git clone --depth 1 https://github.com/mawww/kakoune.git
-          (cd kakoune && make -j$(nproc) PREFIX=$(pwd)/../bundle install-strip)
+          (cd kakoune && make -j$(nproc) PREFIX=$(pwd)/../bundle install)
+          ${{ matrix.strip }} bundle/bin/kak
 
           git clone --depth 1 https://github.com/kak-lsp/kak-lsp.git
           (cd kak-lsp && cargo build --release --locked)
