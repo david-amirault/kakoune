@@ -50,10 +50,14 @@ jobs:
 
           git clone --depth 1 https://git.sr.ht/~hadronized/kak-tree-sitter
           (cd kak-tree-sitter && cargo build --release --locked)
-          kak-tree-sitter/target/release/ktsctl --config $(pwd)/kak-tree-sitter-config.toml sync \
-              bash comment csv fish git-commit go json python sql toml yaml
           cp kak-tree-sitter/target/release/kak-tree-sitter bundle/bin/
-          mv "$HOME/${{ matrix.data_dir }}/kak-tree-sitter" bundle/
+
+          kts_dir="$HOME/${{ matrix.data_dir }}/kak-tree-sitter"
+          mkdir -p "$kts_dir"
+          cp kak-tree-sitter-config.toml "$kts_dir/config.toml"
+          kak-tree-sitter/target/release/ktsctl sync \
+              bash comment csv fish git-commit go json python sql toml yaml
+          mv "$kts_dir" bundle/
 
           git clone --depth 1 https://git.sr.ht/~hadronized/kakoune-tree-sitter-themes
           mv bundle/share/kak/colors/default.kak bundle/share/kak/colors/original.kak
