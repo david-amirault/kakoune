@@ -31,8 +31,10 @@ jobs:
 
       - name: Build
         run: |
+          mkdir -p bundle
+
           git clone --depth 1 https://github.com/mawww/kakoune.git
-          (cd kakoune && make -j$(nproc) && strip ./src/kak)
+          (cd kakoune && make -j$(nproc) PREFIX=$(pwd)/../bundle install-strip)
 
           git clone --depth 1 https://github.com/kak-lsp/kak-lsp.git
           (cd kak-lsp && cargo build --release --locked)
@@ -44,13 +46,11 @@ jobs:
 
       - name: Bundle
         run: |
-          mkdir -p bundle/bin bundle/share/kak/colors
 
-          cp kakoune/src/kak bundle/bin/
-          cp kakoune/share/kak/kakrc bundle/share/kak/
           cp kak-lsp/target/release/kak-lsp bundle/bin/
           cp kak-tree-sitter/target/release/kak-tree-sitter bundle/bin/
           cp kak-tree-sitter/target/release/ktsctl bundle/bin/
+          mv bundle/share/kak/colors/default.kak bundle/share/kak/colors/original.kak
           cp kakoune-tree-sitter-themes/colors/nightowl/night-owl.kak bundle/share/kak/colors/default.kak
 
           tar -czvf kakoune-${{ matrix.target }}.tar.gz bundle/
