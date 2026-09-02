@@ -54,8 +54,9 @@ jobs:
 
           kts_dir="$HOME/${{ matrix.data_dir }}/kak-tree-sitter"
           mkdir -p "$kts_dir"
-          cp kak-tree-sitter-config.toml "$kts_dir/config.toml"
-          kak-tree-sitter/target/release/ktsctl sync \
+          config_path="$kts_dir/config.toml"
+          cp kak-tree-sitter-config.toml "$config_path"
+          kak-tree-sitter/target/release/ktsctl --config "$config_path" sync \
               bash comment csv fish git-commit go json python sql toml yaml
           mv "$kts_dir" bundle/
 
