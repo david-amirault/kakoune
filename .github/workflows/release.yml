@@ -40,14 +40,18 @@ jobs:
           git clone --depth 1 https://git.sr.ht/~hadronized/kak-tree-sitter
           (cd kak-tree-sitter && cargo build --release --locked)
 
+          git clone --depth 1 https://git.sr.ht/~hadronized/kakoune-tree-sitter-themes
+
       - name: Bundle
         run: |
-          mkdir -p bundle
+          mkdir -p bundle/bin bundle/share/kak/colors
 
-          cp kakoune/src/kak bundle/
-          cp kak-lsp/target/release/kak-lsp bundle/
-          cp kak-tree-sitter/target/release/kak-tree-sitter bundle/
-          cp kak-tree-sitter/target/release/ktsctl bundle/
+          cp kakoune/src/kak bundle/bin/
+          cp kakoune/share/kak/kakrc bundle/share/kak/
+          cp kak-lsp/target/release/kak-lsp bundle/bin/
+          cp kak-tree-sitter/target/release/kak-tree-sitter bundle/bin/
+          cp kak-tree-sitter/target/release/ktsctl bundle/bin/
+          cp kak-tree-sitter-themes/colors/nightowl/night-owl.kak bundle/share/kak/colors/default.kak
 
           tar -czvf kakoune-${{ matrix.target }}.tar.gz bundle/
 
