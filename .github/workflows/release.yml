@@ -18,12 +18,15 @@ jobs:
           - target: aarch64-apple-darwin
             os: macos-latest
             strip: strip -S -x
+            data_dir: Library/Application Support
           - target: aarch64-unknown-linux-gnu
             os: ubuntu-26.04-arm
             strip: strip -s
+            data_dir: .local/share
           - target: x86_64-unknown-linux-gnu
             os: ubuntu-26.04
             strip: strip -s
+            data_dir: .local/share
 
     steps:
       - name: Checkout
@@ -35,6 +38,7 @@ jobs:
       - name: Build
         run: |
           mkdir -p bundle
+          cp LICENSE bundle
 
           git clone --depth 1 https://github.com/mawww/kakoune.git
           (cd kakoune && make -j$(nproc) PREFIX=$(pwd)/../bundle install)
@@ -46,12 +50,14 @@ jobs:
 
           git clone --depth 1 https://git.sr.ht/~hadronized/kak-tree-sitter
           (cd kak-tree-sitter && cargo build --release --locked)
+          kak-tree-sitter/target/release/ktsctl --config $(pwd)/kak-tree-sitter-config.toml sync \
+              bash comment csv fish git-commit go json python sql toml yaml
           cp kak-tree-sitter/target/release/kak-tree-sitter bundle/bin/
-          cp kak-tree-sitter/target/release/ktsctl bundle/bin/
+          mv "$HOME/${{ matrix.data_dir }}/kak-tree-sitter" bundle/
 
           git clone --depth 1 https://git.sr.ht/~hadronized/kakoune-tree-sitter-themes
           mv bundle/share/kak/colors/default.kak bundle/share/kak/colors/original.kak
-          cp kakoune-tree-sitter-themes/colors/nightowl/night-owl.kak bundle/share/kak/colors/default.kak
+          cp kakoune-tree-sitter-themes/colors/catppuccin/catppuccin_mocha.kak bundle/share/kak/colors/default.kak
 
       - name: Bundle
         run: |
