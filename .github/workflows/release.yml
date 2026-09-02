@@ -51,7 +51,7 @@ jobs:
           cp kak-lsp/target/release/kak-lsp bundle/bin/
           cp kak-tree-sitter/target/release/kak-tree-sitter bundle/bin/
           cp kak-tree-sitter/target/release/ktsctl bundle/bin/
-          cp kak-tree-sitter-themes/colors/nightowl/night-owl.kak bundle/share/kak/colors/default.kak
+          cp kakoune-tree-sitter-themes/colors/nightowl/night-owl.kak bundle/share/kak/colors/default.kak
 
           tar -czvf kakoune-${{ matrix.target }}.tar.gz bundle/
 
