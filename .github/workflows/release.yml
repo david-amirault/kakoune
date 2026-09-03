@@ -59,10 +59,15 @@ jobs:
           kak-tree-sitter/target/release/ktsctl --config "$config_path" sync \
               bash comment csv fish git-commit go json python sql toml yaml
           mv "$kts_dir" bundle/
+          cat python-injections.scm >> $(printf bundle/kak-tree-sitter/queries/python/*/injections.scm)
 
           git clone --depth 1 https://git.sr.ht/~hadronized/kakoune-tree-sitter-themes
-          mv bundle/share/kak/colors/default.kak bundle/share/kak/colors/original.kak
-          cp kakoune-tree-sitter-themes/colors/catppuccin/catppuccin_mocha.kak bundle/share/kak/colors/default.kak
+          kts_themes_dir=kakoune-tree-sitter-themes/colors
+          colors_dir=bundle/share/kak/colors
+          cp "$kts_themes_dir/catppuccin/catppuccin_latte.kak" "$colors_dir/catppuccin-latte.kak"
+          cp "$kts_themes_dir/catppuccin/catppuccin_macchiato.kak" "$colors_dir/catppuccin-macchiato.kak"
+          cp "$kts_themes_dir/catppuccin/catppuccin_mocha.kak" "$colors_dir/catppuccin-mocha.kak"
+          cp "$kts_themes_dir/nightowl/night-owl.kak" "$colors_dir/night-owl.kak"
 
       - name: Bundle
         run: |
