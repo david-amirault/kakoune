@@ -49,25 +49,23 @@ jobs:
           cp kak-lsp/target/release/kak-lsp bundle/bin/
 
           git clone --depth 1 https://git.sr.ht/~hadronized/kak-tree-sitter
+          cp kak-tree-sitter-config.toml kak-tree-sitter/kak-tree-sitter-config/default-config.toml
           (cd kak-tree-sitter && cargo build --release --locked)
           cp kak-tree-sitter/target/release/kak-tree-sitter bundle/bin/
 
           kts_dir="$HOME/${{ matrix.data_dir }}/kak-tree-sitter"
           mkdir -p "$kts_dir"
-          config_path="$kts_dir/config.toml"
-          cp kak-tree-sitter-config.toml "$config_path"
-          kak-tree-sitter/target/release/ktsctl --config "$config_path" sync \
-              bash comment csv fish git-commit go json python sql toml yaml
+          kak-tree-sitter/target/release/ktsctl sync -all
           mv "$kts_dir" bundle/
           cat python-injections.scm >> $(printf bundle/kak-tree-sitter/queries/python/*/injections.scm)
 
           git clone --depth 1 https://git.sr.ht/~hadronized/kakoune-tree-sitter-themes
-          kts_themes_dir=kakoune-tree-sitter-themes/colors
+          themes_dir=kakoune-tree-sitter-themes/colors
           colors_dir=bundle/share/kak/colors
-          cp "$kts_themes_dir/catppuccin/catppuccin_latte.kak" "$colors_dir/catppuccin-latte.kak"
-          cp "$kts_themes_dir/catppuccin/catppuccin_macchiato.kak" "$colors_dir/catppuccin-macchiato.kak"
-          cp "$kts_themes_dir/catppuccin/catppuccin_mocha.kak" "$colors_dir/catppuccin-mocha.kak"
-          cp "$kts_themes_dir/nightowl/night-owl.kak" "$colors_dir/night-owl.kak"
+          cp "$themes_dir/catppuccin/catppuccin_latte.kak" "$colors_dir/catppuccin-latte.kak"
+          cp "$themes_dir/catppuccin/catppuccin_macchiato.kak" "$colors_dir/catppuccin-macchiato.kak"
+          cp "$themes_dir/catppuccin/catppuccin_mocha.kak" "$colors_dir/catppuccin-mocha.kak"
+          cp "$themes_dir/nightowl/night-owl.kak" "$colors_dir/night-owl.kak"
 
       - name: Bundle
         run: |
