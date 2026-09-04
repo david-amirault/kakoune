@@ -55,7 +55,7 @@ jobs:
 
           kts_dir="$HOME/${{ matrix.data_dir }}/kak-tree-sitter"
           mkdir -p "$kts_dir"
-          kak-tree-sitter/target/release/ktsctl sync -all
+          kak-tree-sitter/target/release/ktsctl sync -a
           mv "$kts_dir" bundle/
           cat python-injections.scm >> $(printf bundle/kak-tree-sitter/queries/python/*/injections.scm)
 
