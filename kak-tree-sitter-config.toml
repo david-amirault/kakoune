@@ -63,13 +63,16 @@ url = "https://github.com/helix-editor/helix"
 pin = "079a789e8cb08ead67f19e1971a1b7438b37354b"
 
 # git-commit
-[grammar.git-commit]
+[grammar.gitcommit]
 compile_args = ["-c", "-fpic", "../scanner.c", "../parser.c", "-I", ".."]
 compile_flags = ["-O3", "-march=native", "-flto=auto"]
-link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "git-commit.so"]
+link_args = ["-shared", "-fpic", "scanner.o", "parser.o", "-o", "gitcommit.so"]
 link_flags = ["-O3", "-flto=auto"]
 
-[grammar.git-commit.source.git]
+[language.git-commit]
+grammar = "gitcommit"
+
+[grammar.gitcommit.source.git]
 url = "https://github.com/gbprod/tree-sitter-gitcommit"
 pin = "a87878a27b78f75ba59df5bb2fbe36ce88c319ab"
 
